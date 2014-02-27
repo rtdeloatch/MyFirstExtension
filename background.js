@@ -1,3 +1,11 @@
+/***
+ Robert Deloatch
+ February 20, 2014
+ background.js
+ rtdeloatch@gmail.com
+ *****/
+
+
 /* Maybe adjust this so that executeScript calls some other .js
 file that has what content.js has right now. This way it might always work on youtube
 hyperlinks

@@ -1,3 +1,10 @@
+/***
+ Robert Deloatch
+ February 20, 2014
+ manifest.json
+ rtdeloatch@gmail.com
+ *****/
+
 {
   "name": "My Talking Extension",
   "manifest_version": 2,
