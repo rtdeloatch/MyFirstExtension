@@ -1,0 +1,23 @@
+{
+  "name": "My Talking Extension",
+  "manifest_version": 2,
+  "version": "1.0.0",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "permissions":["tabs", "http://www.robertdeloatch.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["http://www.youtube.com/*", "https://www.youtube.com/*", 
+      "http://help.websiteos.com/*"],
+      "js": ["jquery-1.11.0.js","content.js"]
+    }
+  ],  
+  "browser_action": {
+      "default_title": "Change colors",
+      "default_icon": "images/icon.png"
+//      "default_popup": "popup.html"
+  }
+
+}
