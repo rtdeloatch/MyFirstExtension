@@ -23,7 +23,7 @@ myTimer = null;
 myPlayer = document.getElementById("movie_player");
 
 //Website that contains layout for question app
-var appLayout = 'http://www.robertdeloatch.com/wp-content/uploads/2013/10/changedAppLayout5.html';
+appLayout = 'http://www.robertdeloatch.com/wp-content/uploads/2013/10/changedAppLayout5.html';
 
 //create object for page
 var data = {call: callback, url: appLayout, flag: "insert", 
@@ -35,9 +35,9 @@ appMainLoop(data);
 
 function appMainLoop(data){
   count = 0;
-  console.log("Hello: " + count);
+  //console.log("Hello: " + count);
   function step(){
-    console.log("Step: " + count);
+    //console.log("Step: " + count);
     count += 1;
  
     if(myPlayer.getPlayerState() === 0){
@@ -45,8 +45,13 @@ function appMainLoop(data){
     }
     
     if(count >= data.interval){
+      if(data.inLoop){
+        data.flag = "update";
+        data.url = appLayout;
+      }
       getSource(data);
       count = 0;
+      data.inLoop = true;
     }
   }
   myTimer = setInterval(step, 1000) //milliseconds, so every second
@@ -66,12 +71,18 @@ function getSource(data){
 }
 
 //Insert HTML of app into the DOM
-function callback(data){
-  if(data.flag === "insert"){
-    $(data.text).insertBefore(newDiv);
+function callback(ldata){
+  if(ldata.flag === "insert"){
+    $(ldata.text).insertBefore(newDiv);
+    checkSelection();
+  }else if(ldata.flag === "submitted"){
+    $("div.appClass").replaceWith(ldata.text);
+  }else if(ldata.flag === "update"){
+    $(".appClass").empty();
+    $("div.appClass").replaceWith(ldata.text);
     checkSelection();
   }else{
-    $("div.appClass").replaceWith(data.text);
+
   }
 }
 
@@ -89,7 +100,8 @@ function checkSelection(){
       choice = NONE;
     }
     //TODO: Log the selection somewhere other than console.
-    console.log(getTime(myPlayer));
+    //console.log(getTime(myPlayer));
+    console.log(choice);
     changeScreen();
   };
 }
@@ -98,7 +110,7 @@ function checkSelection(){
 function changeScreen(){
   //page for next question
   var nextQuestionLayout = 'http://www.robertdeloatch.com/wp-content/uploads/2013/10/nextQuestion.html';
-  var newData = {call: callback, url:nextQuestionLayout, flag:"replace"};
+  var newData = {call: callback, url:nextQuestionLayout, flag:"submitted"};
   $(".appClass").empty();
   getSource(newData);
 }
