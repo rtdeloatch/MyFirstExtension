@@ -40,9 +40,18 @@ function appMainLoop(data){
     //console.log("Step: " + count);
     count += 1;
  
-    if(myPlayer.getPlayerState() === 0){
-      clearInterval(myTimer);
+
+    //todo: Consider refactoring
+    try{
+      if(myPlayer.getPlayerState() === 0){
+        clearInterval(myTimer);
+      }
+    }catch(err){
+      if(document.getElementsByClassName("video-stream")[0].ended){
+        clearInterval(myTimer);
+      }
     }
+
     
     if(count >= data.interval){
       if(data.inLoop){
